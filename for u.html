@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Untuk Kamu yang Spesial</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #ffe6e6;
+      text-align: center;
+      padding: 50px;
+    }
+    .hidden {
+      display: none;
+    }
+    button {
+      padding: 10px 20px;
+      background: #ff99cc;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background: #ff66b2;
+    }
+    footer {
+      margin-top: 60px;
+      font-size: 14px;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Hai kamu! 🥰</h1>
+  <div id="step1">
+    <p>Masukin nama kamu dulu ya~</p>
+    <input type="text" id="nama" placeholder="Namamu di sini">
+    <br><br>
+    <button onclick="mulai()">Mulai</button>
+  </div>
+
+  <div id="step2" class="hidden">
+    <p id="sapaan"></p>
+    <p>1. Kamu sayang aku? 💖</p>
+    <button onclick="jawab(1, 'ya')">Ya</button>
+    <button onclick="jawab(1, 'tidak')">Tidak</button>
+
+    <div id="q2" class="hidden">
+      <p>2. Mau terus sama aku? 😚</p>
+      <button onclick="jawab(2, 'ya')">Mau</button>
+      <button onclick="jawab(2, 'tidak')">Enggak</button>
+    </div>
+
+    <div id="q3" class="hidden">
+      <p>3. Siap nemenin aku selamanya? 😘</p>
+      <button onclick="jawab(3, 'ya')">Siap banget!</button>
+      <button onclick="jawab(3, 'tidak')">Belum siap</button>
+    </div>
+  </div>
+
+  <div id="hasil" class="hidden">
+    <h2>🥹 Terima kasih, <span id="namaAkhir"></span> 💖</h2>
+    <p id="pesanAkhir"></p>
+  </div>
+
+  <footer>
+    <p>By Aji 💌</p>
+  </footer>
+
+  <script>
+    let jawaban = {};
+    let nama = "";
+
+    function mulai() {
+      nama = document.getElementById("nama").value.trim();
+      if (nama === "") {
+        alert("Masukin nama dulu dong 😄");
+        return;
+      }
+      document.getElementById("step1").classList.add("hidden");
+      document.getElementById("step2").classList.remove("hidden");
+      document.getElementById("sapaan").innerText = `Hai ${nama}, jawab jujur ya 😍`;
+    }
+
+    function jawab(nomor, nilai) {
+      jawaban["q" + nomor] = nilai;
+      if (nomor === 1) document.getElementById("q2").classList.remove("hidden");
+      if (nomor === 2) document.getElementById("q3").classList.remove("hidden");
+      if (nomor === 3) {
+        document.getElementById("step2").classList.add("hidden");
+        document.getElementById("hasil").classList.remove("hidden");
+        document.getElementById("namaAkhir").innerText = nama;
+
+        let pesan = "";
+        if (jawaban.q1 === "ya" && jawaban.q2 === "ya" && jawaban.q3 === "ya") {
+          pesan = "Aku juga sayang banget sama kamu! ❤️ Yuk terus bareng-bareng, sampai tua nanti. 🥰";
+        } else {
+          pesan = "Terima kasih udah jujur ya... apapun jawabannya, kamu tetap spesial buatku. 💌";
+        }
+        document.getElementById("pesanAkhir").innerText = pesan;
+      }
+    }
+  </script>
+
+</body>
+</html>
